@@ -1,0 +1,1 @@
+import "./cob/_secured_access.js";

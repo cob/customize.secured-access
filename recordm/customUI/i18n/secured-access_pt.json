@@ -1,0 +1,6 @@
+{
+  "secured-access": {
+    "not-available": "Apenas disponível ao editar uma instância",
+    "invalid-configuration": "Configuração inválida da informação do campo protegido"
+  }
+}

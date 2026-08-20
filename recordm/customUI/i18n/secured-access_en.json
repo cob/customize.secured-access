@@ -1,0 +1,6 @@
+{
+  "secured-access": {
+    "not-available": "Only available when editing an instance",
+    "invalid-configuration": "Invalid secured field info configuration"
+  }
+}
