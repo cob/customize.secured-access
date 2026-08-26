@@ -1,7 +1,7 @@
 {
   "id": null,
   "name": "Secured Access Audit",
-  "description": "@COB v0.1.0",
+  "description": "@COB v0.2.0",
   "duplicable": null,
   "state": "enabled",
   "fieldDefinitions": [
@@ -25,16 +25,16 @@
       "duplicable": false,
       "fields": [],
       "order": 0,
+      "duplicablePath": false,
       "descendents": [],
       "rootField": true,
-      "duplicablePath": false,
       "restricted": false,
       "defaultValue": null
     },
     {
       "id": null,
       "name": "Access Date",
-      "required": null,
+      "required": "mandatory",
       "description": "$datetime $editForGroup(System) $readonly $instanceLabel",
       "configuration": {
         "description": null,
@@ -44,10 +44,10 @@
               "System"
             ]
           },
+          "DateTime": {},
           "Readonly": {
             "args": {}
           },
-          "DateTime": {},
           "InstanceLabel": {}
         },
         "extensions": {}
@@ -57,54 +57,17 @@
       "duplicable": false,
       "fields": [],
       "order": 1,
+      "duplicablePath": false,
       "descendents": [],
       "rootField": true,
-      "duplicablePath": false,
       "restricted": false,
       "defaultValue": null
     },
     {
       "id": null,
       "name": "User",
-      "required": null,
+      "required": "mandatory",
       "description": "$extRef(userm,/userm/user/search?q={{this}}) $editForGroup(System) $readonly $instanceDescription",
-      "configuration": {
-        "description": null,
-        "keys": {
-          "EditForGroup": {
-            "args": [
-              "System"
-            ]
-          },
-          "ExternalReference": {
-            "args": {
-              "product": "userm",
-              "query": "/userm/user/search?q={{this}}"
-            }
-          },
-          "Readonly": {
-            "args": {}
-          },
-          "InstanceDescription": {}
-        },
-        "extensions": {}
-      },
-      "condition": null,
-      "visibilityCondition": null,
-      "duplicable": false,
-      "fields": [],
-      "order": 2,
-      "descendents": [],
-      "rootField": true,
-      "duplicablePath": false,
-      "restricted": false,
-      "defaultValue": null
-    },
-    {
-      "id": null,
-      "name": "Instance",
-      "required": null,
-      "description": "$ref(proxy,*) $editForGroup(System) $readonly $instanceDescription",
       "configuration": {
         "description": null,
         "keys": {
@@ -117,6 +80,136 @@
             "args": {}
           },
           "InstanceDescription": {},
+          "ExternalReference": {
+            "args": {
+              "product": "userm",
+              "query": "/userm/user/search?q={{this}}"
+            }
+          }
+        },
+        "extensions": {}
+      },
+      "condition": null,
+      "visibilityCondition": null,
+      "duplicable": false,
+      "fields": [],
+      "order": 2,
+      "duplicablePath": false,
+      "descendents": [],
+      "rootField": true,
+      "restricted": false,
+      "defaultValue": null
+    },
+    {
+      "id": null,
+      "name": "Instance",
+      "required": "mandatory",
+      "description": "$ref(proxy,*) $editForGroup(System) $readonly $instanceDescription Source of the request",
+      "configuration": {
+        "description": "Source of the request",
+        "keys": {
+          "EditForGroup": {
+            "args": [
+              "System"
+            ]
+          },
+          "Readonly": {
+            "args": {}
+          },
+          "Reference": {
+            "args": {
+              "query": "*",
+              "definition": "proxy"
+            }
+          },
+          "InstanceDescription": {}
+        },
+        "extensions": {}
+      },
+      "condition": null,
+      "visibilityCondition": null,
+      "duplicable": false,
+      "fields": [],
+      "order": 3,
+      "duplicablePath": false,
+      "descendents": [],
+      "rootField": true,
+      "restricted": false,
+      "defaultValue": null
+    },
+    {
+      "id": null,
+      "name": "Access Details",
+      "required": null,
+      "description": "$group $expanded",
+      "configuration": {
+        "description": null,
+        "keys": {
+          "Expanded": {
+            "args": {}
+          },
+          "Group": {}
+        },
+        "extensions": {}
+      },
+      "condition": null,
+      "visibilityCondition": null,
+      "duplicable": false,
+      "fields": [],
+      "order": 4,
+      "duplicablePath": false,
+      "descendents": [],
+      "rootField": true,
+      "restricted": false,
+      "defaultValue": null
+    },
+    {
+      "id": null,
+      "name": "Definition",
+      "required": "mandatory",
+      "description": "$editForGroup(System) $readonly $instanceDescription",
+      "configuration": {
+        "description": null,
+        "keys": {
+          "EditForGroup": {
+            "args": [
+              "System"
+            ]
+          },
+          "Readonly": {
+            "args": {}
+          },
+          "InstanceDescription": {}
+        },
+        "extensions": {}
+      },
+      "condition": null,
+      "visibilityCondition": null,
+      "duplicable": false,
+      "fields": [],
+      "order": 5,
+      "duplicablePath": false,
+      "descendents": [],
+      "rootField": true,
+      "restricted": false,
+      "defaultValue": null
+    },
+    {
+      "id": null,
+      "name": "Secured Instance",
+      "required": "mandatory",
+      "description": "$ref(proxy,*) $editForGroup(System) $readonly",
+      "configuration": {
+        "description": null,
+        "keys": {
+          "EditForGroup": {
+            "args": [
+              "System"
+            ]
+          },
+          "Readonly": {
+            "args": {}
+          },
           "Reference": {
             "args": {
               "query": "*",
@@ -130,10 +223,10 @@
       "visibilityCondition": null,
       "duplicable": false,
       "fields": [],
-      "order": 3,
+      "order": 6,
+      "duplicablePath": false,
       "descendents": [],
       "rootField": true,
-      "duplicablePath": false,
       "restricted": false,
       "defaultValue": null
     },
@@ -162,10 +255,10 @@
       "visibilityCondition": null,
       "duplicable": false,
       "fields": [],
-      "order": 4,
+      "order": 7,
+      "duplicablePath": false,
       "descendents": [],
       "rootField": true,
-      "duplicablePath": false,
       "restricted": false,
       "defaultValue": null
     }

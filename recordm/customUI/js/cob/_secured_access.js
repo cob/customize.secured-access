@@ -22,8 +22,6 @@ cob.custom.customize.push(function(core, utils, ui) {
           return;
         }
 
-        securedGroupHtml.classList.add("bg-amber-100");
-
         securedGroupHtml.querySelector(".group-name")
           .insertAdjacentHTML(
             "beforebegin",
@@ -37,7 +35,7 @@ cob.custom.customize.push(function(core, utils, ui) {
         const refInstanceId = instance.data.id;
         const fields = { };
 
-        securedGroupFP.getChildPs().filter(fp => fp.getField().fieldDefinition.configuration.extensions[KEYWORD_SECURED_INFO])
+        presenter.findFieldPsUnder(securedGroupFP, (fp => fp.getField().fieldDefinition.configuration.extensions[KEYWORD_SECURED_INFO]))
           .forEach(sFp => {
             // disable the field. This field will never hold any information.
             sFp.disable();
