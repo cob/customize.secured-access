@@ -22,8 +22,6 @@ cob.custom.customize.push(function(core, utils, ui) {
           return;
         }
 
-        securedGroupHtml.classList.add("bg-amber-100");
-
         securedGroupHtml.querySelector(".group-name")
           .insertAdjacentHTML(
             "beforebegin",
@@ -32,12 +30,10 @@ cob.custom.customize.push(function(core, utils, ui) {
             "       </span>",
           );
 
-        const definition = confs.args[0];
-        const refField = confs.args[1];
-        const refInstanceId = instance.data.id;
+        const instanceId = instance.data.id;
         const fields = { };
 
-        securedGroupFP.getChildPs().filter(fp => fp.getField().fieldDefinition.configuration.extensions[KEYWORD_SECURED_INFO])
+        presenter.findFieldPsUnder(securedGroupFP, (fp => fp.getField().fieldDefinition.configuration.extensions[KEYWORD_SECURED_INFO]))
           .forEach(sFp => {
             // disable the field. This field will never hold any information.
             sFp.disable();
@@ -71,10 +67,12 @@ cob.custom.customize.push(function(core, utils, ui) {
 
             if (revealButton.dataset.state === "hidden") {
               try {
-                const secrets = await getSecret(definition, refField, refInstanceId, Object.keys(fields));
+                const secrets = await getSecret(
+                  instanceId,
+                  securedGroupFP.getField().fieldDefinition.id,
+                  Object.keys(fields));
 
                 for (const [key, input] of Object.entries(fields)) {
-                  console.log(input)
                   input.value = secrets[key];
                 }
 
@@ -100,7 +98,7 @@ cob.custom.customize.push(function(core, utils, ui) {
       });
   });
 
-  async function getSecret(definition, refField, refInstanceId, fields) {
+  async function getSecret(instanceId, securedFieldDefId, fields) {
     core.showLoading("get-secret");
 
     try {
@@ -110,9 +108,8 @@ cob.custom.customize.push(function(core, utils, ui) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          definition,
-          refField,
-          refInstanceId,
+          instanceId,
+          securedFieldDefId,
           fields,
         }),
       }).then((res) => {
